@@ -1,14 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import "./App.css";
+import SmallerPhotos from "./SmallerPhotos";
+import PhotoByDate from "./PhotoByDate";
 
 function App() {
+  const [nasaData, setNasaData] = useState([]);
+  const [smallPhotosData, setSmallPhotosData] = useState([]);
+  useEffect(() => {
+    axios.get('https://api.nasa.gov/planetary/apod?api_key=tZ4k7gr49eKqs5hGRgKIRDPcJ9C1DKfhSfhlIRMG')
+    .then(result => {
+      // console.log(result);
+      setNasaData(result.data)
+    }).catch(err => {
+      console.error(err);
+    })
+  }, [])
+
+  useEffect(() => {
+    axios.get('https://api.nasa.gov/planetary/apod?api_key=tZ4k7gr49eKqs5hGRgKIRDPcJ9C1DKfhSfhlIRMG&count=4')
+    .then(result => {
+      console.log(result);
+      setSmallPhotosData(result.data)
+      
+    }).catch(err => {
+      console.error(err);
+    })
+  }, [])
+  
   return (
     <div className="App">
-      <p>
-        Read through the instructions in the README.md file to build your NASA
-        app! Have fun <span role="img" aria-label='go!'>🚀</span>!
-      </p>
+      <h1>Lost in Space: Nasa Photos of the Day</h1>
+      <div className="mainImgContainer">
+        <h2>
+          {nasaData.title};
+        </h2>
+        <img className="mainImage"
+          src={nasaData.hdurl}
+          alt="nasa image of the day"
+      />
+        <p>
+          {nasaData.explanation};
+        </p>
+      </div>
+      <div>
+        <h3 className="click">Click on a Photo for a Detailed Explanation!</h3>
+      </div>
+
+      <div className="smallerPhotos">
+        {smallPhotosData.map((result, index) => {
+          return <SmallerPhotos key={index} info={result}/>
+        })}
+        
+      </div>
+      <div className="photoByDate">
+        <PhotoByDate />
+      </div>
     </div>
+ 
   );
 }
 

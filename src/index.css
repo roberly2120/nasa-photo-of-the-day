@@ -5,9 +5,46 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: darkgrey;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+/* .mainImage {
+  width: 50%;
+  height: auto;
+} */
+.mainImgContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  width: 50%;
+  height: auto;
+  margin-left: 25%;
+}
+
+.smallerPhotos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+.smallPhotoContainer {
+  width: 40%;
+
+}
+.smallPhoto {
+  height: auto;
+  max-width: 100%;
+}
+.inActive {
+display: none;
+}
+.click {
+  color:darkred
 }
